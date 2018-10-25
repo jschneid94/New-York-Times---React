@@ -12,6 +12,12 @@ const articleSeed = [
         author: "Jordan Schneider",
         synopsis: "Blah blah blah blah blah",
         date: new Date(Date.now())
+    },
+    {
+        title: "Test Article 2",
+        author: "Jordan Schneider",
+        synopsis: "Blah blah blah blah blah",
+        date: new Date(Date.now())
     }
 ];
 
