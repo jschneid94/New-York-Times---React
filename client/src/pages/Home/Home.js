@@ -7,9 +7,18 @@ import "./Home.css";
 class Home extends Component {
 
   state = {
+    articles: [],
     topic: "",
     startYear: "",
     endYear: ""
+  };
+
+  loadArticles = () => {
+    API.searchArticles(this.state.topic, this.state.startYear, this.state.endYear)
+      .then(res =>
+        this.setState({ articles: res.data, topic: "", startYear: "", endYear: "" })
+      )
+      .catch(err => console.log(err));
   };
 
   handleInputChange = event => {
@@ -21,22 +30,15 @@ class Home extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveBook({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
-      })
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
-    }
+    this.loadArticles()
+      .catch(err => console.log(err));
   };
 
   render() {
     return (
       <Container>
         <Row>
-          <Col size="sm-12">
+          <Col size="md-6 sm-12">
             <div className="card text-center">
               <div className="card-header">
                 
@@ -57,6 +59,7 @@ class Home extends Component {
                     name="startYear"
                     id="startYear"
                     text="Start Year"
+                    type="date"
                   />
                   <Input
                     value={this.state.endYear}
@@ -64,6 +67,7 @@ class Home extends Component {
                     name="endYear"
                     id="endYear"
                     text="End Year"
+                    type="date"
                   />
                   <FormBtn
                     disabled={!(this.state.topic && this.state.startYear && this.state.endYear)}
@@ -72,6 +76,16 @@ class Home extends Component {
                     Search
                   </FormBtn>
                 </form>
+              </div>
+            </div>
+          </Col>
+          <Col size="md-6 sm-12">
+            <div className="card text-center">
+              <div className="card-header">
+                
+                <h4><i class="fa fa-list-alt"></i> Result</h4>
+              </div>
+              <div className="card-body">
               </div>
             </div>
           </Col>

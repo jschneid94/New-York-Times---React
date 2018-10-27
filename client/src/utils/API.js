@@ -2,8 +2,15 @@ import axios from "axios";
 
 export default {
   // Gets the articles with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
+  searchArticles: function(topic, startDate, endDate) {
+    return axios.get({
+        url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
+        qs: {
+          'q' : topic,
+          'begin_date': startDate,
+          'end_date': endDate
+        },
+      });
   },
   // Deletes the book with the given id
   deleteBook: function(id) {
