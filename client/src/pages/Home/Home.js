@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { List, ListItem } from "../../components/List";
 import { Container, Col, Row } from "../../components/Grid";
 import { Input, FormBtn } from "../../components/Form";
 import API from "../../utils/API";
@@ -30,8 +31,8 @@ class Home extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    this.loadArticles()
-      .catch(err => console.log(err));
+    this.loadArticles();
+    //   .catch(err => console.log(err));
   };
 
   render() {
@@ -82,10 +83,22 @@ class Home extends Component {
           <Col size="md-6 sm-12">
             <div className="card text-center">
               <div className="card-header">
-                
                 <h4><i class="fa fa-list-alt"></i> Result</h4>
               </div>
               <div className="card-body">
+                {this.state.articles.length ? (
+                  <List>
+                    {this.state.articles.map(article => {
+                      return (
+                        <ListItem key={article._id}>
+                            Whats up
+                        </ListItem>  
+                      );
+                    })}
+                  </List>
+                ) : (
+                    <h3>No Results to Display</h3>
+                )}
               </div>
             </div>
           </Col>
